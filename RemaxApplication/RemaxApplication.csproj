@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="App_Data\Remax.mdb" />
     <Content Include="Index.aspx" />
+    <Content Include="SendMessage.aspx" />
     <Content Include="ShowHouse.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -82,6 +83,13 @@
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendMessage.aspx.cs">
+      <DependentUpon>SendMessage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SendMessage.aspx.designer.cs">
+      <DependentUpon>SendMessage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ShowHouse.aspx.cs">
       <DependentUpon>ShowHouse.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

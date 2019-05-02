@@ -147,6 +147,19 @@ namespace RemaxApplication
                 sql = sql.Substring(0, sql.Length - 4);
             }
             sql += ") AND (";
+
+            foreach (ListItem item in chkFor.Items)
+            {
+                if (item.Selected)
+                {
+                    sql += "Contract='" + item.Text + "' OR ";
+                }
+            }
+            if (sql.Substring(sql.Length - 4) == " OR ")
+            {
+                sql = sql.Substring(0, sql.Length - 4);
+            }
+            sql += ") AND (";
             if (cboPriceFrom.SelectedIndex > -1 && cboPriceTo.SelectedIndex > -1)
             {
                 

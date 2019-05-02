@@ -64,7 +64,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     <i class="fa fa-phone" style="width:30px"></i> <asp:Label runat="server" ID="lblPhone"></asp:Label><br>
     <i class="fa fa-envelope" style="width:30px"> </i> <asp:Label runat="server" ID="lblEmail"></asp:Label><br>
     <p>Questions? Go ahead, ask them:</p>
-    <form action="/action_page.php" target="_blank" runat="server">
+    <form action="SendMessage.aspx" target="_blank" runat="server">
       <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
       <p><input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
       <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>

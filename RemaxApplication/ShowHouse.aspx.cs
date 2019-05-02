@@ -25,7 +25,7 @@ namespace RemaxApplication
                 lblBathroom.Text = h["Bathroom"].ToString();
                 lblDescription.Text = h["Description"].ToString();
                 lblYear.Text = h["YearBuilt"].ToString();
-                lblprice.Text = (h["Contract"].ToString()=="Sales") ? " $ " + h["Price"].ToString() : " $ " + h["Price"].ToString() + " per month";
+                lblprice.Text = (h["Contract"].ToString()=="Sale") ? " $ " + h["Price"].ToString() : " $ " + h["Price"].ToString() + " per month";
                 lblRegion.Text = h["Region"].ToString();
 
                 var a = (from DataRow dr in clsGlobal.tabAgents.Rows
