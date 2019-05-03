@@ -43,10 +43,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     </form>
   </div>
   <div class="w3-bar-block" runat="server">
-    
-    <a href="#apartment" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-building"></i> Apartment</a>
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-16" onclick="document.getElementById('subscribe').style.display='block'"><i class="fa fa-rss"></i> Subscribe</a>
-    <a href="#contact" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-envelope"></i> Contact</a>
+    <a href="ShowAgents.aspx" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-envelope"></i> Contact Our Agents</a>
   </div>
 </nav>
 

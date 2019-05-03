@@ -25,12 +25,13 @@ namespace RemaxApplication
 
                 foreach (DataRow dr in clsGlobal.tabAgents.Rows)
                 {
-                    litAgents.Text += "<a href='#'>" + dr["AgentName"].ToString() + "</a>" + "<br/><br/>";
+                    litAgents.Text += "<strong>" + dr["AgentName"].ToString() + "</strong><br/><br/>";
                     litAgents.Text += "Gender : " + dr["Gender"].ToString() + "<br/>";
                     litAgents.Text += "Languages : " + dr["Language"].ToString() + "<br/>";
                     litAgents.Text += "City : " + dr["City"].ToString() + "<br/>";
                     litAgents.Text += "Phone : " + dr["Phone"].ToString() + "<br/>";
-                    litAgents.Text += "Email : " + dr["Email"].ToString() + "<br/><hr/>"; 
+                    litAgents.Text += "Email : " + dr["Email"].ToString() + "<br/><br/>";
+                    litAgents.Text += "<a href='MessageToAgent.aspx?refA=" + dr["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
                 }
 
                 FillChkLanguage();
@@ -114,12 +115,14 @@ namespace RemaxApplication
             }
             while (rd.Read())
             {
-                litAgents.Text += "<a href='#'>" + rd["AgentName"].ToString() + "</a>" + "<br/><br/>";
+                litAgents.Text += "<strong>" + rd["AgentName"].ToString() + "</strong><br/><br/>";
                 litAgents.Text += "Gender : " + rd["Gender"].ToString() + "<br/>";
                 litAgents.Text += "Languages : " + rd["Language"].ToString() + "<br/>";
                 litAgents.Text += "City : " + rd["City"].ToString() + "<br/>";
                 litAgents.Text += "Phone : " + rd["Phone"].ToString() + "<br/>";
-                litAgents.Text += "Email : " + rd["Email"].ToString() + "<br/><hr/>";
+                litAgents.Text += "Email : " + rd["Email"].ToString() + "<br/><br/>";
+                litAgents.Text += "<a href='SendMessage.aspx?refA=" + rd["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
+
             }
             
             
