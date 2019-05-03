@@ -23,20 +23,24 @@ namespace RemaxApplication
                 clsGlobal.adpAgents.Fill(clsGlobal.mySet, "Agents");
                 clsGlobal.tabAgents = clsGlobal.mySet.Tables["Agents"];
 
-                foreach (DataRow dr in clsGlobal.tabAgents.Rows)
-                {
-                    litAgents.Text += "<strong>" + dr["AgentName"].ToString() + "</strong><br/><br/>";
-                    litAgents.Text += "Gender : " + dr["Gender"].ToString() + "<br/>";
-                    litAgents.Text += "Languages : " + dr["Language"].ToString() + "<br/>";
-                    litAgents.Text += "City : " + dr["City"].ToString() + "<br/>";
-                    litAgents.Text += "Phone : " + dr["Phone"].ToString() + "<br/>";
-                    litAgents.Text += "Email : " + dr["Email"].ToString() + "<br/><br/>";
-                    litAgents.Text += "<a href='MessageToAgent.aspx?refA=" + dr["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
-                }
-
+                ShowAllAgents();
                 FillChkLanguage();
                 FillRadGender();
                 FillChkCity();
+            }
+        }
+
+        private void ShowAllAgents()
+        {
+            foreach (DataRow dr in clsGlobal.tabAgents.Rows)
+            {
+                litAgents.Text += "<strong>" + dr["AgentName"].ToString() + "</strong><br/><br/>";
+                litAgents.Text += "Gender : " + dr["Gender"].ToString() + "<br/>";
+                litAgents.Text += "Languages : " + dr["Language"].ToString() + "<br/>";
+                litAgents.Text += "City : " + dr["City"].ToString() + "<br/>";
+                litAgents.Text += "Phone : " + dr["Phone"].ToString() + "<br/>";
+                litAgents.Text += "Email : " + dr["Email"].ToString() + "<br/><br/>";
+                litAgents.Text += "<a href='MessageToAgent.aspx?refA=" + dr["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
             }
         }
 
@@ -76,8 +80,21 @@ namespace RemaxApplication
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            string flag = "";
             string sql = "SELECT * FROM Agents WHERE ";
-            sql += "(";
+            bool isAnySelected = chkLanguages.SelectedIndex != -1;
+            bool isAnySelected2 = radGender.SelectedIndex != -1;
+            bool isAnySelected3 = chkCity.SelectedIndex != -1;
+            if (!isAnySelected && !isAnySelected2 && !isAnySelected3)
+            {
+                litAgents.Text = "";
+                ShowAllAgents();
+                flag = "none";
+            }
+            if (isAnySelected)
+            {
+                sql += " (";
+            }
             foreach (ListItem item in chkLanguages.Items)
             {
                 if (item.Selected)
@@ -85,17 +102,33 @@ namespace RemaxApplication
                     sql += "[Language] LIKE '%" + item.Text + "%' OR ";
                 }
             }
-            sql = sql.Substring(0, sql.Length-4);
-            sql += ") AND ";
-            sql += "Gender='" + radGender.SelectedItem.ToString() + "'";
-            //foreach (ListItem item in radGender.Items)
-            //{
-            //    if (item.Selected)
-            //    {
-            //        sql += "(Gender='" + item.Text + "')";
-            //    }
-            //}
-            sql += " AND (";
+            if (isAnySelected)
+            {
+                sql = sql.Substring(0, sql.Length - 4);
+                sql += ")";
+                
+            }
+            
+            isAnySelected = radGender.SelectedIndex != -1;
+            if (isAnySelected2)
+            {
+                if (sql.Substring(sql.Length-1)==")")
+                {
+                    sql += " AND ";
+                }
+                
+                sql += "Gender='" + radGender.SelectedItem.ToString() + "'";
+            }
+            isAnySelected = chkCity.SelectedIndex != -1;
+            if (isAnySelected3)
+            {
+                if (sql.Substring(sql.Length-1)=="'")
+                {
+                    sql += " AND ";
+                }
+                sql += "(";
+                
+            } 
             foreach (ListItem item in chkCity.Items)
             {
                 if (item.Selected)
@@ -103,29 +136,39 @@ namespace RemaxApplication
                     sql += "City='" + item.Text + "' OR ";
                 }
             }
-            sql = sql.Substring(0, sql.Length - 4);
-            sql += ")";
+            if (isAnySelected3)
+            {
+                sql = sql.Substring(0, sql.Length - 4);
+                sql += ")";
+            }
 
-            OleDbCommand myCmd = new OleDbCommand(sql, clsGlobal.myCon);
-            OleDbDataReader rd = myCmd.ExecuteReader();
+            
+            if (flag != "none")
+            {
+                litAgents.Text = "";
+                OleDbCommand myCmd = new OleDbCommand(sql, clsGlobal.myCon);
+                OleDbDataReader rd = myCmd.ExecuteReader();
+
+                while (rd.Read())
+                {
+                    litAgents.Text += "<strong>" + rd["AgentName"].ToString() + "</strong><br/><br/>";
+                    litAgents.Text += "Gender : " + rd["Gender"].ToString() + "<br/>";
+                    litAgents.Text += "Languages : " + rd["Language"].ToString() + "<br/>";
+                    litAgents.Text += "City : " + rd["City"].ToString() + "<br/>";
+                    litAgents.Text += "Phone : " + rd["Phone"].ToString() + "<br/>";
+                    litAgents.Text += "Email : " + rd["Email"].ToString() + "<br/><br/>";
+                    litAgents.Text += "<a href='MessageToAgent.aspx?refA=" + rd["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
+
+                }
+            }
+            
+
+        }
+
+        protected void btnAll_Click(object sender, EventArgs e)
+        {
             litAgents.Text = "";
-            if (!rd.Read())
-            {
-                litAgents.Text += "Oops... We could not find any agents!";
-            }
-            while (rd.Read())
-            {
-                litAgents.Text += "<strong>" + rd["AgentName"].ToString() + "</strong><br/><br/>";
-                litAgents.Text += "Gender : " + rd["Gender"].ToString() + "<br/>";
-                litAgents.Text += "Languages : " + rd["Language"].ToString() + "<br/>";
-                litAgents.Text += "City : " + rd["City"].ToString() + "<br/>";
-                litAgents.Text += "Phone : " + rd["Phone"].ToString() + "<br/>";
-                litAgents.Text += "Email : " + rd["Email"].ToString() + "<br/><br/>";
-                litAgents.Text += "<a href='SendMessage.aspx?refA=" + rd["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
-
-            }
-            
-            
+            ShowAllAgents();
         }
     }
 }

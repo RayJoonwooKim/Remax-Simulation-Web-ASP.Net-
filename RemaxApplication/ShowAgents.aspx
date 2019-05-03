@@ -35,6 +35,10 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
          <p><i class="fa fa-map-marker fa-fw w3-margin-right w3-text-theme"></i> City : <asp:CheckBoxList runat="server" ID="chkCity"></asp:CheckBoxList></p>
          <asp:Button runat="server" ID="btnSearch" class="w3-button w3-block w3-theme-l1 w3-left-align" Text="Find" OnClick="btnSearch_Click" />
                 <br />
+
+                <br />
+                <asp:Button runat="server" ID="btnAll" class="w3-button w3-block w3-theme-l1 w3-left-align" Text="All Agents" OnClick="btnAll_Click"  />
+                <br />
                 <br />
             </form>
          
@@ -58,8 +62,8 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
     <div class="w3-col m7" runat="server">
  
       <div class="w3-container w3-card w3-white w3-round w3-margin"><br>
-        <asp:Literal runat="server" ID="litAgents"></asp:Literal>
-        <hr class="w3-clear">
+        <asp:Literal runat="server" ID="litAgents"></asp:Literal> <br />
+        
       </div>  
 
     <!-- End Middle Column -->
