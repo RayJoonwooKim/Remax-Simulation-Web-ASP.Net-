@@ -32,6 +32,7 @@ namespace RemaxApplication
                          where dr["RefAgent"].ToString() == h["RefAgent"].ToString()
                          select dr).First<DataRow>();
 
+                Session["RefAgent"] = a["RefAgent"].ToString();
                 lblAgent.Text = a["AgentName"].ToString();
                 lblPhone.Text = a["Phone"].ToString();
                 lblEmail.Text = a["Email"].ToString();

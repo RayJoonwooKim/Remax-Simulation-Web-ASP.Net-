@@ -12,6 +12,28 @@ namespace RemaxApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string name = Request.Form["Name"].ToString();
+            string email = Request.Form["Email"].ToString();
+            string message = Request.Form["Message"].ToString();
+            int refagent = Convert.ToInt32(Session["RefAgent"]);
+
+            lblText.Text = refagent.ToString();
+            OleDbCommand myCmd = new OleDbCommand("SELECT * FROM Messages", clsGlobal.myCon);
+            clsGlobal.adpMessages = new OleDbDataAdapter(myCmd);
+            clsGlobal.adpMessages.Fill(clsGlobal.mySet, "Messages");
+            clsGlobal.tabMessages = clsGlobal.mySet.Tables["Messages"];
+
+            DataRow myRow = clsGlobal.tabMessages.NewRow();
+            myRow["SenderName"] = name;
+            myRow["Email"] = email;
+            myRow["Message"] = message;
+            myRow["RefAgent"] = refagent;
+
+            clsGlobal.tabMessages.Rows.Add(myRow);
+
+            OleDbCommandBuilder myBuild = new OleDbCommandBuilder(clsGlobal.adpMessages);
+            clsGlobal.adpMessages.Update(clsGlobal.tabMessages);
+
 
         }
     }

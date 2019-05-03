@@ -10,8 +10,8 @@ namespace RemaxApplication
     static class clsGlobal
     {
         public static OleDbConnection myCon;
-        public static OleDbDataAdapter adpHouses, adpTypes, adpRegions, adpAgents;
+        public static OleDbDataAdapter adpHouses, adpTypes, adpRegions, adpAgents, adpMessages;
         public static DataSet mySet;
-        public static DataTable tabHouses, tabAgents;
+        public static DataTable tabHouses, tabAgents, tabMessages;
     }
 }
