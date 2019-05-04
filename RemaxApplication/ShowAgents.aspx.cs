@@ -34,14 +34,25 @@ namespace RemaxApplication
         {
             foreach (DataRow dr in clsGlobal.tabAgents.Rows)
             {
+                
                 litAgents.Text += "<strong>" + dr["AgentName"].ToString() + "</strong><br/><br/>";
                 litAgents.Text += "Gender : " + dr["Gender"].ToString() + "<br/>";
                 litAgents.Text += "Languages : " + dr["Language"].ToString() + "<br/>";
                 litAgents.Text += "City : " + dr["City"].ToString() + "<br/>";
                 litAgents.Text += "Phone : " + dr["Phone"].ToString() + "<br/>";
                 litAgents.Text += "Email : " + dr["Email"].ToString() + "<br/><br/>";
+                litAgents.Text += "Currently in charge of : " + "<br/><br/>";
+                OleDbCommand myCmd = new OleDbCommand("SELECT RefHouse, Type, Region, Address, Contract FROM Houses WHERE RefAgent=" + Convert.ToInt32(dr["RefAgent"]), clsGlobal.myCon);
+                OleDbDataReader rd = myCmd.ExecuteReader();
+                while (rd.Read())
+                {
+                    litAgents.Text += "<strong>" + rd["Type"].ToString() + " for " + rd["Contract"].ToString() + "</strong><br/>";
+                    litAgents.Text += "<a href='ShowHouse.aspx?refH=" + rd["RefHouse"].ToString() + "'>" + rd["Address"].ToString() + " in " + rd["Region"].ToString() + "</a><br/><br/>";
+                }
                 litAgents.Text += "<a href='MessageToAgent.aspx?refA=" + dr["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
             }
+
+            
         }
 
         private void FillChkLanguage()
@@ -157,6 +168,14 @@ namespace RemaxApplication
                     litAgents.Text += "City : " + rd["City"].ToString() + "<br/>";
                     litAgents.Text += "Phone : " + rd["Phone"].ToString() + "<br/>";
                     litAgents.Text += "Email : " + rd["Email"].ToString() + "<br/><br/>";
+                    litAgents.Text += "Currently in charge of : " + "<br/><br/>";
+                    OleDbCommand myCmd2 = new OleDbCommand("SELECT RefHouse, Type, Region, Address, Contract FROM Houses WHERE RefAgent=" + Convert.ToInt32(rd["RefAgent"]), clsGlobal.myCon);
+                    OleDbDataReader rd2 = myCmd2.ExecuteReader();
+                    while (rd2.Read())
+                    {
+                        litAgents.Text += "<strong>" + rd2["Type"].ToString() + " for " + rd2["Contract"].ToString() + "</strong><br/>";
+                        litAgents.Text += "<a href='ShowHouse.aspx?refH=" + rd2["RefHouse"].ToString() + "'>" + rd2["Address"].ToString() + " in " + rd2["Region"].ToString() + "</a><br/><br/>";
+                    }
                     litAgents.Text += "<a href='MessageToAgent.aspx?refA=" + rd["RefAgent"].ToString() + "'>Send a message to the agent</a><hr/>";
 
                 }

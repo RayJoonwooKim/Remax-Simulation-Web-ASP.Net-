@@ -30,7 +30,7 @@ namespace RemaxApplication
                 clsGlobal.adpAgents.Fill(clsGlobal.mySet, "Agents");
                 clsGlobal.tabAgents = clsGlobal.mySet.Tables["Agents"];
 
-                myCmd = new OleDbCommand("SELECT * FROM Regions", clsGlobal.myCon);
+                myCmd = new OleDbCommand("SELECT * FROM Regions ORDER BY RegionName", clsGlobal.myCon);
                 clsGlobal.adpRegions = new OleDbDataAdapter(myCmd);
                 clsGlobal.adpRegions.Fill(clsGlobal.mySet, "Regions");
 
@@ -39,7 +39,7 @@ namespace RemaxApplication
                 chkRegions.DataSource = clsGlobal.mySet.Tables["Regions"];
                 chkRegions.DataBind();
 
-                myCmd = new OleDbCommand("SELECT * FROM Types", clsGlobal.myCon);
+                myCmd = new OleDbCommand("SELECT * FROM Types ORDER BY Description", clsGlobal.myCon);
                 clsGlobal.adpTypes = new OleDbDataAdapter(myCmd);
                 clsGlobal.adpTypes.Fill(clsGlobal.mySet, "Types");
 

@@ -76,6 +76,10 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Client.cs" />
+    <Compile Include="Business\Company.cs" />
+    <Compile Include="Business\Employee.cs" />
+    <Compile Include="Business\House.cs" />
     <Compile Include="clsGlobal.cs" />
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

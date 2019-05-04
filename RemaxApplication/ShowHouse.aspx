@@ -72,7 +72,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     </form>
   </div>
   
-  <footer class="w3-container w3-padding-16" style="margin-top:32px">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></footer>
+  <footer class="w3-container w3-padding-16" style="margin-top:32px"><p class="w3-hover-text-green">Remax Simulation Web Application</p></footer>
 
 <!-- End page content -->
 </div>
