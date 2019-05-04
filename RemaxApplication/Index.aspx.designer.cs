@@ -94,6 +94,33 @@ namespace RemaxApplication {
         protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
+        /// btnAllProperties control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAllProperties;
+        
+        /// <summary>
+        /// apartment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl apartment;
+        
+        /// <summary>
+        /// litPropertyCount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal litPropertyCount;
+        
+        /// <summary>
         /// litHouses control.
         /// </summary>
         /// <remarks>

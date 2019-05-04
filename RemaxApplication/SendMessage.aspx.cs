@@ -34,7 +34,7 @@ namespace RemaxApplication
             clsGlobal.adpMessages.Update(clsGlobal.tabMessages);
 
             lblText.Text = "Message was successfully sent!";
-            lblGoBack.Text = "<a href='Index.aspx'>Go back to main page</a>";
+            
 
         }
     }

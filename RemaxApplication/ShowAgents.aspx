@@ -47,13 +47,18 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <br/>
       
       <!-- Alert Box -->
-      <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
+        <div class="w3-container w3-display-container w3-round w3-theme-l4 w3-border w3-theme-border w3-margin-bottom w3-hide-small">
         <span onclick="this.parentElement.style.display='none'" class="w3-button w3-theme-l3 w3-display-topright">
           <i class="fa fa-remove"></i>
         </span>
         <p><strong>Hey!</strong></p>
-        <p>People are looking at your profile. Find out who.</p>
+        <p>Look for our best agents!</p>
       </div>
+
+        <div class="w3-bar-block" runat="server">
+            <a href="Index.aspx" class="w3-button w3-block w3-theme-l1 w3-left-align"><i class="fa fa-home"></i> Go to Remax Real Estate</a>
+        </div>
+      
     
     <!-- End Left Column -->
     </div>
@@ -74,7 +79,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>Upcoming Events:</p>
-          <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
+          
           <p><strong>Holiday</strong></p>
           <p>Friday 15:00</p>
           <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>

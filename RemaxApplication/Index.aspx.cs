@@ -60,11 +60,12 @@ namespace RemaxApplication
 
         private void ShowAllHouses()
         {
+            litPropertyCount.Text = "All Properties";
             foreach (DataRow dr in clsGlobal.tabHouses.Rows)
             {
                 litHouses.Text += dr["Type"].ToString() + " for " + dr["Contract"].ToString() + "<br/>";
                 litHouses.Text += "<a href='ShowHouse.aspx?refH=" + dr["RefHouse"].ToString() + "'>" + dr["Address"].ToString() + "</a>" + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
-                litHouses.Text += (dr["Contract"].ToString()=="Sale") ? "$ " + dr["Price"].ToString() + "<br/><br/><hr/>" : " $ " + dr["Price"].ToString() + " per months <br/><br/><hr/>";
+                litHouses.Text += (dr["Contract"].ToString()=="Sale") ? "$ " + dr["Price"].ToString() + "<br/><br/><hr/>" : " $ " + dr["Price"].ToString() + " per month <br/><br/><hr/>";
             }
         }
 
@@ -76,6 +77,7 @@ namespace RemaxApplication
                 cboPriceFrom.Items.Add(new ListItem("$ " + amount.ToString(), amount.ToString()));
                 amount += 50000;
             }
+            cboPriceFrom.Items.Insert(0, new ListItem("Undefined", "Undefined"));
             
         }
 
@@ -87,6 +89,7 @@ namespace RemaxApplication
                 cboPriceTo.Items.Add(new ListItem("$ " + amount.ToString(), amount.ToString()));
                 amount += 50000;
             }
+            cboPriceTo.Items.Insert(0, new ListItem("Undefined", "Undefined"));
         }
         private void FillCboRoom()
         {
@@ -96,6 +99,7 @@ namespace RemaxApplication
                 cboRooms.Items.Add(new ListItem("+" + room.ToString(), room.ToString()));
                 room++;
             }
+            cboRooms.Items.Insert(0, new ListItem("Undefined", "Undefined"));
         }
 
         private void FillCboBathroom()
@@ -106,6 +110,7 @@ namespace RemaxApplication
                 cboBathrooms.Items.Add(new ListItem("+" + room.ToString(), room.ToString()));
                 room++;
             }
+            cboBathrooms.Items.Insert(0, new ListItem("Undefined", "Undefined"));
         }
         private void FillCboFor()
         {
@@ -116,8 +121,28 @@ namespace RemaxApplication
 
         protected void Unnamed1_Click(object sender, EventArgs e)
         {
-            string sql = "SELECT * FROM Houses WHERE (";
+            string flag = "";
+            string sql = "SELECT * FROM Houses WHERE ";
+            bool isAnySelected = chkTypes.SelectedIndex != -1;
+            bool isAnySelected2 = chkRegions.SelectedIndex != -1;
+            bool isAnySelected3 = chkFor.SelectedIndex != -1;
+            bool isAnySelected4 = cboPriceFrom.Text != "Undefined";
+            bool isAnySelected5 = cboPriceTo.Text != "Undefined";
+            bool isAnySelected6 = cboRooms.Text != "Undefined";
+            bool isAnySelected7 = cboBathrooms.Text != "Undefined";
 
+            if (!isAnySelected && !isAnySelected2 && !isAnySelected3 && !isAnySelected4 && !isAnySelected5 && !isAnySelected6 && !isAnySelected7)
+            {
+                litHouses.Text = "";
+                ShowAllHouses();
+                flag = "none";
+            }
+
+            //If chkTypes are checked...
+            if (isAnySelected)
+            {
+                sql += "(";
+            }
             foreach (ListItem item in chkTypes.Items)
             {
                 if (item.Selected)
@@ -130,10 +155,20 @@ namespace RemaxApplication
             if (sql.Substring(sql.Length-4)==" OR ")
             {
                 sql = sql.Substring(0, sql.Length - 4);
+                sql += ")";
             }
 
-            sql += ") AND (";
-
+            //If chkRegions are checked...
+            if (isAnySelected2)
+            {
+                if (sql.Substring(sql.Length-1)==")")
+                {
+                    sql += " AND ";
+                }
+                sql += "(";
+                
+            }
+            
             foreach (ListItem item in chkRegions.Items)
             {
                 if (item.Selected)
@@ -145,9 +180,19 @@ namespace RemaxApplication
             if (sql.Substring(sql.Length - 4) == " OR ")
             {
                 sql = sql.Substring(0, sql.Length - 4);
+                sql += ")";
             }
-            sql += ") AND (";
 
+            //If chkFor is checked...
+            if (isAnySelected3)
+            {
+                if (sql.Substring(sql.Length-1)==")")
+                {
+                    sql += " AND ";
+                }
+                sql += "(";
+            }
+            
             foreach (ListItem item in chkFor.Items)
             {
                 if (item.Selected)
@@ -158,27 +203,76 @@ namespace RemaxApplication
             if (sql.Substring(sql.Length - 4) == " OR ")
             {
                 sql = sql.Substring(0, sql.Length - 4);
+                sql += ")";
             }
-            sql += ") AND (";
-            if (cboPriceFrom.SelectedIndex > -1 && cboPriceTo.SelectedIndex > -1)
+            if (isAnySelected4 || isAnySelected5)
+            {
+                if (sql.Substring(sql.Length-1)==")")
+                {
+                    sql += " AND ";
+                }
+                sql += "(";
+            }
+            
+            if (isAnySelected4 && isAnySelected5)
             {
                 
-                sql += "Price BETWEEN " + Convert.ToInt32(cboPriceFrom.SelectedValue) + " AND " + Convert.ToInt32(cboPriceTo.SelectedValue) + ") AND ";
+                sql += "Price BETWEEN " + Convert.ToInt32(cboPriceFrom.SelectedValue) + " AND " + Convert.ToInt32(cboPriceTo.SelectedValue) + ")";
+            }
+            if (isAnySelected4 && !isAnySelected5)
+            {
+
+                sql += "Price >= " + Convert.ToInt32(cboPriceFrom.SelectedValue) + ")";
+            }
+            if (!isAnySelected4 && isAnySelected5)
+            {
+
+                sql += "Price <= " + Convert.ToInt32(cboPriceTo.SelectedValue) + ")";
             }
 
-            if (cboRooms.SelectedIndex > -1 && cboBathrooms.SelectedIndex > -1)
+            if (isAnySelected6 || isAnySelected7)
             {
-                sql += "(Room >= " + Convert.ToInt32(cboRooms.SelectedValue) + " AND Bathroom >=" + Convert.ToInt32(cboBathrooms.SelectedValue) + ")";
+                if (sql.Substring(sql.Length-1)==")")
+                {
+                    sql += " AND ";
+                }
+                sql += "(";
             }
-            litSql.Text = sql.ToString();
-            OleDbCommand myCmd = new OleDbCommand(sql, clsGlobal.myCon);
-            OleDbDataReader rd = myCmd.ExecuteReader();
+            if (isAnySelected6 && isAnySelected7)
+            {
+                sql += "Room >= " + Convert.ToInt32(cboRooms.SelectedValue) + " AND Bathroom >=" + Convert.ToInt32(cboBathrooms.SelectedValue) + ")";
+            }
+            if (!isAnySelected6 && isAnySelected7)
+            {
+                sql += "Bathroom >= " + Convert.ToInt32(cboBathrooms.SelectedValue) + ")";
+            }
+            if (isAnySelected6 && !isAnySelected7)
+            {
+                sql += "Room >= " + Convert.ToInt32(cboRooms.SelectedValue) + ")";
+            }
+
+            //litSql.Text = sql.ToString();
+
+            if (flag != "none")
+            {
+                OleDbCommand myCmd = new OleDbCommand(sql, clsGlobal.myCon);
+                OleDbDataReader rd = myCmd.ExecuteReader();
+                litPropertyCount.Text = "Properties Found";
+                litHouses.Text = "";
+                while (rd.Read())
+                {
+                    litHouses.Text += rd["Type"].ToString() + " for " + rd["Contract"].ToString() + "<br/>";
+                    litHouses.Text += "<a href='ShowHouse.aspx?refH=" + rd["RefHouse"].ToString() + "'>" + rd["Address"].ToString() + "</a>" + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+                    litHouses.Text += (rd["Contract"].ToString() == "Sale") ? "$ " + rd["Price"].ToString() + "<br/><br/><hr/>" : " $ " + rd["Price"].ToString() + " per month <br/><br/><hr/>";
+                }
+            }
+
+        }
+
+        protected void btnAllProperties_Click(object sender, EventArgs e)
+        {
             litHouses.Text = "";
-            while (rd.Read())
-            {
-                litHouses.Text += rd["Type"].ToString() + " for " + rd["Contract"].ToString() + "<br/>";
-                litHouses.Text += "<a href='ShowHouse.aspx?refH=" + rd["RefHouse"].ToString() + "'>" + rd["Address"].ToString() + "</a>&nbsp&nbsp&nbsp&nbsp$" + rd["Price"].ToString() + "<br/><br/><hr/>";
-            }
+            ShowAllHouses();
         }
     }
 }

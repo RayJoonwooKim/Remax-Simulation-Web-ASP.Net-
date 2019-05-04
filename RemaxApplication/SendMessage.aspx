@@ -11,10 +11,7 @@
         <div>
         </div>
         <asp:Label ID="lblText" runat="server" Text="Label"></asp:Label>
-        <br />
-        <br />
-        <br />
-        <asp:Label ID="lblGoBack" runat="server" Text="Label"></asp:Label>
+        
     </form>
 </body>
 </html>

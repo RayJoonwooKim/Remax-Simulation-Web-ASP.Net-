@@ -23,7 +23,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
     <h3>Dream Home</h3>
     
     <hr/>
-    <form action="Index.aspx" target="_blank" runat="server">
+    <form action="Index.aspx" runat="server">
        <p><label> Types : </label></p> 
       <asp:CheckBoxList runat="server" class="w3-input w3-border" ID="chkTypes"> </asp:CheckBoxList>
       <p><label> Regions : </label></p> 
@@ -40,6 +40,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
       <asp:DropDownList runat="server" class="w3-input w3-border" ID="cboBathrooms"></asp:DropDownList>
         <br /><br />
       <asp:Button runat="server" class="w3-button w3-block w3-green w3-left-align" Text="Search" OnClick="Unnamed1_Click" ID="Button1" />
+        <br />
+        <asp:Button runat="server" class="w3-button w3-block w3-green w3-left-align" Text="All Properties" ID="btnAllProperties" OnClick="btnAllProperties_Click" />
     </form>
   </div>
   <div class="w3-bar-block" runat="server">
@@ -63,8 +65,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   <div class="w3-hide-large" style="margin-top:80px"></div>
 
   <!-- Slideshow Header -->
-  <div class="w3-container" id="apartment">
-    <h2 class="w3-text-green">All Properties</h2>
+  <div class="w3-container" id="apartment" runat="server">
+    <h2 class="w3-text-green"><asp:Literal runat="server" ID="litPropertyCount"></asp:Literal></h2>
   </div>
   
   <div class="w3-container" runat="server">
