@@ -63,7 +63,7 @@ namespace RemaxApplication
             litPropertyCount.Text = "All Properties";
             foreach (DataRow dr in clsGlobal.tabHouses.Rows)
             {
-                litHouses.Text += dr["Type"].ToString() + " for " + dr["Contract"].ToString() + "<br/>";
+                litHouses.Text += "<strong>" + dr["Type"].ToString() + "</strong> for <strong>" + dr["Contract"].ToString() + "</strong><br/>";
                 litHouses.Text += "<a href='ShowHouse.aspx?refH=" + dr["RefHouse"].ToString() + "'>" + dr["Address"].ToString() + "</a>" + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
                 litHouses.Text += (dr["Contract"].ToString()=="Sale") ? "$ " + dr["Price"].ToString() + "<br/><br/><hr/>" : " $ " + dr["Price"].ToString() + " per month <br/><br/><hr/>";
             }
